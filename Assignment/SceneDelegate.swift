@@ -1,23 +1,28 @@
 //
 //  SceneDelegate.swift
 //  Assignment
-//
-//  Created by user174137 on 8/25/20.
+////  ID: 30733154
+//  FIT5040 - Advanced Mobile Applications
+//  Created by Flloyd Dsouza on 8/25/20.
 //  Copyright © 2020 Monash University. All rights reserved.
 //
 
 import UIKit
-
-class SceneDelegate: UIResponder, UIWindowSceneDelegate {
+import CoreLocation
+class SceneDelegate: UIResponder, UIWindowSceneDelegate, CLLocationManagerDelegate {
 
     var window: UIWindow?
-
+    var locationManager = CLLocationManager()
+    var alert: Bool = false
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         guard let _ = (scene as? UIWindowScene) else { return }
+         locationManager.delegate = self
+        locationManager.requestAlwaysAuthorization()
+        
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
@@ -35,6 +40,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func sceneWillResignActive(_ scene: UIScene) {
         // Called when the scene will move from an active state to an inactive state.
         // This may occur due to temporary interruptions (ex. an incoming phone call).
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        appDelegate.databaseController?.cleanup()
     }
 
     func sceneWillEnterForeground(_ scene: UIScene) {
@@ -48,6 +55,23 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // to restore the scene back to its current state.
     }
 
-
+    // Refered to Videos under Moodle for setting up GeoFence using SceneDelegate
+    func locationManager(_ manager: CLLocationManager, didEnterRegion region: CLRegion) {
+        print("Geo Location Triggered")
+        if UIApplication.shared.applicationState == .active && alert == false {
+            alert =  true
+            let regionName = region.identifier
+            let alert = UIAlertController(title: regionName, message: "You have entered the Botanical Site \(regionName) ! ", preferredStyle: .alert)
+            let dismis = UIAlertAction(title: "Dismiss", style: .default, handler: handleDismiss)
+            alert.addAction(dismis)
+            self.window?.rootViewController?.present(alert, animated: true, completion: nil)
+        }
+    }
+    
+    
+    func handleDismiss(alertAction: UIAlertAction!) -> Void{
+        alert = false
+    }
+    
 }
 

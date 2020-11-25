@@ -2,7 +2,9 @@
 //  AppDelegate.swift
 //  Assignment
 //
-//  Created by user174137 on 8/25/20.
+//  Created by Flloyd Dsouza on 8/25/20.
+//  ID: 30733154
+//  FIT5040 - Advanced Mobile Applications
 //  Copyright © 2020 Monash University. All rights reserved.
 //
 
@@ -10,11 +12,13 @@ import UIKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
+    
+    var databaseController: DatabaseProtocol?
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        databaseController = CoreDataController()
         return true
     }
 

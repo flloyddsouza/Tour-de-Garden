@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="16119" systemVersion="19G73" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="Exhibit" representedClassName="Exhibit" syncable="YES">
+        <attribute name="desc" optional="YES" attributeType="String"/>
+        <attribute name="lat" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="long" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="url" optional="YES" attributeType="String"/>
+        <relationship name="gardens" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Garden" inverseName="exhibits" inverseEntity="Garden"/>
+        <relationship name="plants" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Plant" inverseName="exhibitss" inverseEntity="Plant"/>
+    </entity>
+    <entity name="Garden" representedClassName="Garden" syncable="YES">
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <relationship name="exhibits" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Exhibit" inverseName="gardens" inverseEntity="Exhibit"/>
+    </entity>
+    <entity name="Plant" representedClassName="Plant" syncable="YES">
+        <attribute name="family" optional="YES" attributeType="String"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="sciName" optional="YES" attributeType="String"/>
+        <attribute name="url" optional="YES" attributeType="String"/>
+        <attribute name="year" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <relationship name="exhibitss" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Exhibit" inverseName="plants" inverseEntity="Exhibit"/>
+    </entity>
+    <elements>
+        <element name="Exhibit" positionX="158" positionY="-73" width="128" height="148"/>
+        <element name="Garden" positionX="-67" positionY="-191" width="128" height="73"/>
+        <element name="Plant" positionX="426" positionY="85" width="128" height="133"/>
+    </elements>
+</model>
